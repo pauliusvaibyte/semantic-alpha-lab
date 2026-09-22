@@ -1,0 +1,17 @@
+.env
+*.db
+*.db-shm
+*.db-wal
+*.sqlite*
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+*.whl
+dist/
+build/
+.venv/
+data/
+logs/
+runs/
+nul

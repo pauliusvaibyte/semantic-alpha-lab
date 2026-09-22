@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "semantic-alpha-lab"
+version = "0.5.0"
+description = "Research-first semantic social alpha engine for crypto markets"
+requires-python = ">=3.11"
+dependencies = [
+  "httpx>=0.27",
+  "pydantic>=2.9",
+  "typer>=0.12",
+  "pandas>=2.2",
+  "numpy>=2.0",
+  "scikit-learn>=1.5",
+  "joblib>=1.4",
+]
+
+[project.optional-dependencies]
+jev = ["typesafe-sdk>=0.1.0"]
+stream = ["websockets>=14"]
+dev = ["pytest>=8", "pytest-asyncio>=0.24", "ruff>=0.6"]
+
+[project.scripts]
+semantic-alpha = "semantic_alpha.cli:app"
+
+[tool.setuptools.packages.find]
+include = ["semantic_alpha*"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 120
+extend-exclude = ["_old_src", "build"]
+
+[tool.ruff.lint]
+# Correctness-class rules only: syntax errors, pyflakes, bugbear.
+# Style/preference rules are intentionally not gated yet.
+select = ["E9", "F", "B"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

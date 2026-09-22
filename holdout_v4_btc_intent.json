@@ -1,0 +1,22 @@
+{
+  "name": "v4_btc_intent_holdout",
+  "locked_at": "2026-09-22T10:43:54.984209+00:00",
+  "hypothesis": "1h-bucket Spearman rho(intent_mean_15m, fwd_15m_return) > 0 on BTCUSDT",
+  "feature": "intent_mean_15m",
+  "symbol": "BTCUSDT",
+  "horizon": "15m",
+  "unit": "independent 1h bucket means",
+  "window": "buckets with ts >= locked_at only (post-lock data never seen at registration)",
+  "criteria": {
+    "min_buckets": 36,
+    "rho_threshold": 0.15,
+    "bootstrap_ci95_lower_gt0": true,
+    "partial_after_momentum_vol": "> 0.10"
+  },
+  "verdicts": {
+    "PASS": "all criteria met -> promote to paper-trade candidate list",
+    "FAIL": "any criterion missed -> negative result, close the lead",
+    "INSUFFICIENT": "<36 buckets collected -> no verdict"
+  },
+  "fingerprint": "71f98143c326f2f3"
+}

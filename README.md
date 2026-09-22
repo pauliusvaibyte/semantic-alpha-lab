@@ -19,7 +19,6 @@ Tested on live-collected data: ~30k X posts, ~34k per-asset semantic interpretat
 - **Weak survivor:** BTC bullish-content density (`intent_mean_15m`) held partial ρ≈0.27–0.33 after momentum, volatility, volume and time-detrend controls — but within-regime demeaning drops it to ≈0.19, likely below trading costs at 15m cadence. Honestly reported; not promoted.
 - **Ops forensics:** the cost ledger caught vendor billing at ~15 credits per delivered tweet-instance, and a model-alias bug that re-billed ~3.2k classifications — both fixed and covered by regression tests.
 
-The verdict: **no demonstrated tradeable edge at this latency.** The deliverable is the instrument — reusable for any social/alternative data source.
 
 ## Thesis
 

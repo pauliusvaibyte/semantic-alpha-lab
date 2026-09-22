@@ -1,8 +1,25 @@
-# Semantic Alpha Lab v0.5.0
+# Semantic Alpha Lab
 
-Research-first crypto social-information alpha engine rebuilt from the idea behind `brainstormity/Jev-X-Sentiment-Analysis`.
+[![ci](https://github.com/pauliusvaibyte/semantic-alpha-lab/actions/workflows/ci.yml/badge.svg)](https://github.com/pauliusvaibyte/semantic-alpha-lab/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+![Python](https://img.shields.io/badge/python-3.11%2B-blue)
+
+**A crypto social-alpha research pipeline rigorous enough to falsify its own signals.**
+
+Most quant repos show you a backtest. This one ships the machinery that asks whether the backtest was lying — point-in-time clocks, leakage audits, momentum/trend controls, block bootstrap, FDR, locked one-shot holdouts — and then publishes the honest negative result it produced.
 
 **Jev never directly chooses BUY/SELL/HOLD.** It converts unstructured social posts into point-in-time semantic variables. A separate quantitative layer asks whether those variables add incremental predictive value over a strong market/derivatives/attention baseline after costs, leakage controls and realistic portfolio constraints.
+
+## What it found (real run, ~45 independent hourly buckets)
+
+Tested on live-collected data: ~30k X posts, ~34k per-asset semantic interpretations, ~44k matured path labels — across quiet, mention-storm, BTC-rally and provider-outage regimes.
+
+- **Artifact killed:** an apparent +0.19 sentiment→return correlation traced to spam density and price→posts reverse causality. The fix (cashtag rules + relevance weighting) is now in the feature layer.
+- **Artifact killed:** SOL `liquidation_imbalance` (ρ=+0.31) collapsed to +0.10 under a trailing-momentum control — a momentum echo, not signal.
+- **Weak survivor:** BTC bullish-content density (`intent_mean_15m`) held partial ρ≈0.27–0.33 after momentum, volatility, volume and time-detrend controls — but within-regime demeaning drops it to ≈0.19, likely below trading costs at 15m cadence. Honestly reported; not promoted.
+- **Ops forensics:** the cost ledger caught vendor billing at ~15 credits per delivered tweet-instance, and a model-alias bug that re-billed ~3.2k classifications — both fixed and covered by regression tests.
+
+The verdict: **no demonstrated tradeable edge at this latency.** The deliverable is the instrument — reusable for any social/alternative data source.
 
 ## Thesis
 
@@ -94,7 +111,7 @@ No new alpha features. This release makes time, identity and economics trustwort
 - **Jev model honesty.** The configured model is actually sent to the SDK; the returned `effective_model` is stored as provenance (`jev-latest` currently resolves to `jev-1.13.0`).
 - **Holdout can't be burned or bypassed.** Identity derives from the raw interval/universe/protocol, locks write before evaluation, and campaigns hard-stop on quality/leakage failures.
 - **Correct event semantics.** Joins on `(post_id, symbol)`; `t.co` redirector domains no longer cluster unrelated posts; an exact normalized destination URL is a decisive match; events anchor to actionable observation time and persist with stable IDs.
-- **A regression test per finding.** `tests/test_correctness_release.py` (23 tests); total suite 91. CI runs lint + compile + tests on Python 3.11/3.12; `requirements-lock.txt` pins the tested environment; `dist/` ships the wheel + `SHA256SUMS.txt`.
+- **A regression test per finding.** `tests/test_correctness_release.py` (23 tests); total suite 113. CI runs lint + compile + tests on Python 3.11/3.12; `requirements-lock.txt` pins the tested environment.
 
 ## What v0.4 adds
 
